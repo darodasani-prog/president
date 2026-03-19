@@ -1,0 +1,69 @@
+{
+  "entities": {
+    "Volunteer": {
+      "title": "Volunteer",
+      "description": "A campaign volunteer registration",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Full name of the volunteer" },
+        "email": { "type": "string", "format": "email", "description": "Email address" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Registration timestamp" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"], "description": "Application status" }
+      },
+      "required": ["name", "email", "createdAt"]
+    },
+    "Contact": {
+      "title": "Contact",
+      "description": "A contact form submission",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Sender's name" },
+        "email": { "type": "string", "format": "email", "description": "Sender's email" },
+        "subject": { "type": "string", "description": "Message subject" },
+        "message": { "type": "string", "description": "Message content" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Submission timestamp" }
+      },
+      "required": ["name", "email", "message", "createdAt"]
+    },
+    "Subscriber": {
+      "title": "Subscriber",
+      "description": "A newsletter subscriber",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email", "description": "Subscriber's email" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Subscription timestamp" }
+      },
+      "required": ["email", "createdAt"]
+    },
+    "User": {
+      "title": "User",
+      "description": "A system user with roles",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email", "description": "User email" },
+        "role": { "type": "string", "enum": ["admin", "staff", "user"], "description": "User role" },
+        "displayName": { "type": "string", "description": "Display name" }
+      },
+      "required": ["uid", "email", "role"]
+    }
+  },
+  "firestore": {
+    "/volunteers/{volunteerId}": {
+      "schema": "Volunteer",
+      "description": "Collection of volunteer registrations"
+    },
+    "/contacts/{contactId}": {
+      "schema": "Contact",
+      "description": "Collection of contact form submissions"
+    },
+    "/subscribers/{subscriberId}": {
+      "schema": "Subscriber",
+      "description": "Collection of newsletter subscribers"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user profiles and roles"
+    }
+  }
+}
